@@ -62,12 +62,15 @@ Then run the build command to create images for the license manager and the moni
 
 **Install service.txt** -- In the interest of simplicity you 
 have to put a copy of your service.txt file
-from your license server here so that it can be baked into the build. I could
-have used a bind mount or a volume but this is easy and you have to build 
-your own image anyway due to aforementioned license requirements.
+from your license server here so that it can be baked into the build. 
+You need to edit the service.txt file so that it has the actual license server
+host name instead of "This_Host".  Copy the service.txt file into the
+config/ directory, and edit it.
+
+Build the image. Use buildx or don't. I find it far faster than using docker-compose
 
 ```bash
-docker build -t wildsong/arctic-monitor .
+docker buildx build -t wildsong/arctic-monitor .
 ```
 
 If the build fails with a message about not being able to ADD then you
@@ -91,7 +94,7 @@ You can look around in the new container by launching into a bash shell.
 If you don't want to, skip to the next section.
 
 ```bash
-    docker run -it --rm wildsong/arctic-monitor bash
+docker run -it --rm wildsong/arctic-monitor bash
 ```
 
 When you are in the shell you can run "./test.sh" and it should dump
@@ -100,64 +103,11 @@ it can run the Python as well.
 
 ## Deployment
 
-The python code and its environment were already set up in the Docker
-file.
-
-If you are only running the monitor container then you need a current
-copy of the "service.txt" file from your license manager.  You need to
-edit the service.txt file so that it has the actual license server
-host name instead of "This_Host".  Copy the service.txt file into the
-config/ directory, and edit it.
-
-When using both containers the name of the lmgrd host and the name in the service.txt
-file have to match. When running the lmgrd somewhere else it has to be
-the name of that other machine.
-
-Now you just have to run the containers.
+You just have to run the container. Docker-compose.yml has the 
+environment set up and is set to restart so use that.
 
 ```bash
-docker-compose up -d
-```
-
-If you only want to run the monitor, you should be able to type
-
-```bash
-    docker-compose up monitor
-```
-
-The monitor will show up at <http://localhost:5000/> (or use your server
-name in place of localhost if you are not running it locally).
-
-The output of my running license manager looked like this when I started it.
-
-```bash
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) ===============================================
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) === Vendor Daemon ===
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Vendor daemon: ARCGIS
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Start-Date: Fri Feb 26 2021 14:23:57 PST
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) PID: 8
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) VD Version: v11.16.5.1 build 257031 x64_lsb ( build 257031 (ipv6))
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@)
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) === Startup/Restart Info ===
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Options file used: None
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Is vendor daemon a CVD: No
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Is FlexNet Licensing Service installed and compatible: No
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) FlexNet Licensing Service Version: -NA-
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Is TS accessed: No
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) TS access time: -NA-
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Number of VD restarts since LS startup: 0
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@)
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) === Network Info ===
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Listening port: 27001
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Daemon select timeout (in seconds): 1
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@)
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) === Host Info ===
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Host used in license file: cc-testmaps
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) HostID node-locked in license file: NA
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) HostID of the License Server: 0242ac150003
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) Running on Hypervisor: Unknown Hypervisor
-lmgrd_1    | 14:23:57 (ARCGIS) (@ARCGIS-SLOG@) ===============================================
-lmgrd_1    | 14:24:33 (ARCGIS) TCP_NODELAY NOT enabled
+docker-compose up
 ```
 
 ## Misc
