@@ -107,7 +107,7 @@ You just have to run the container. Docker-compose.yml has the
 environment set up and is set to restart so use that.
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 ## Misc
