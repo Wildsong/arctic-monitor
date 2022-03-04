@@ -1,0 +1,5 @@
+flask>=1.1.2
+flask-wtf>=0.14
+flask-bootstrap>=3.3
+flask-debugtoolbar>=0.10.1
+waitress>=1.4.0

@@ -1,0 +1,49 @@
+./lmutil lmstat -c service.txt -a
+lmutil - Copyright (c) 1989-2018 Flexera. All Rights Reserved.
+Flexible License Manager status on Fri 7/12/2019 11:03
+
+[Detecting lmgrd processes...]
+License server status: 27000@myserver-GIS
+    License file(s) on myserver-GIS: C:\Program Files (x86)\ArcGIS\LicenseManager\bin\service.txt:
+
+    myserver-GIS: license server UP (MASTER) v11.16.2
+
+Vendor daemon status (on myserver-GIS):
+
+    ARCGIS: UP v11.16.2
+Feature usage info:
+
+Users of ACT:  (Total of 1 license issued;  Total of 0 licenses in use)
+
+Users of ARC/INFO:  (Total of 6 licenses issued;  Total of 2 licenses in use)
+
+  "ARC/INFO" v10.1, vendor: ARCGIS, expiry: permanent(no expiration date)
+  floating license
+
+    jsmith machine1 w%.=H@QVO!;~_8' (v10.1) (MYSERVER-GIS/27000 101), start Fri 7/12 8:42
+    jdoe machine2 8e/^i`qunDiW@tT (v10.1) (MYSERVER-GIS/27000 202), start Fri 7/12 8:46
+
+Users of ArcStorm:  (Total of 6 licenses issued;  Total of 0 licenses in use)
+
+Users of ArcStormEnable:  (Total of 6 licenses issued;  Total of 0 licenses in use)
+
+Users of desktopAdvP:  (Total of 5 licenses issued;  Total of 0 licenses in use)
+
+Users of Grid:  (Total of 1 license issued;  Total of 0 licenses in use)
+
+Users of MrSID:  (Total of 6 licenses issued;  Total of 0 licenses in use)
+
+Users of Plotting:  (Total of 6 licenses issued;  Total of 0 licenses in use)
+
+Users of spatialAnalystP:  (Total of 1 license issued;  Total of 0 licenses in use)
+
+Users of TIFFLZW:  (Total of 6 licenses issued;  Total of 0 licenses in use)
+
+Users of VBA:  (Total of 4 licenses issued;  Total of 1 license in use)
+
+  "VBA" v10.1, vendor: ARCGIS, expiry: permanent(no expiration date)
+  floating license
+
+    jdoe machine2 8e/^i`qunDiW@tT (v10.1) (MYSERVER-GIS/27000 302), start Fri 7/12 8:47
+
+
