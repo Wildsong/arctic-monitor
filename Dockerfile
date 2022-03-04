@@ -66,9 +66,6 @@ USER root
 # STAGE 2 -- install and run the microservice
 FROM conda/miniconda3
 
-# what's missing? ELF compatibility
-#RUN yum install -y compat-libstdc++-33.i686 redhat-lsb.i686
-
 # This will upgrade conda, so the fact that the base image is old does not matter
 # flask-bootstrap needs hugo
 RUN conda update -n base -c defaults conda
@@ -84,7 +81,7 @@ COPY --from=stage1 /home/flexlm/arcgis/licensemanager/bin/lmutil .
 ENV LMHOME /home/flexlm
 ENV LMUTIL /home/flexlm/lmutil
 ENV LICENSE /home/flexlm/service.txt
-#USER flexlm
+USER flexlm
 
 # Install the microservice
 COPY license_monitor.py .
@@ -100,4 +97,3 @@ EXPOSE 5000
 
 # Run the microservice
 CMD ["python3", "start_server.py"]
-
