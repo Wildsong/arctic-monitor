@@ -1,5 +1,10 @@
 # arctic-monitor
 
+2022-06 I am working on turning this into a microservice instead of a full web page,
+so the web page you can load at port 5000 is no longer as pretty as it used to be.
+(See the notes on version 2 all the way at the bottom of this page.)
+I got arctic-monitor to a useful stage and now I work on it when time permits.
+
 System for monitoring an ArcGIS concurrent license manager
 
 This is a small Dockerized app written in Python running as a service.
@@ -50,11 +55,11 @@ from you.
 
 I don't like Redhat, so stage 2 of the Dockerfile uses Debian 11.
 The final image is smaller. I am sure it could go a lot smaller but
-I am done for today.
+I am done for today. Maybe someone could make it run in Alpine?
 
 ### Docker build
 
-Because of the licensing constraints I don't push this image up to Docker Hub.
+Because of the licensing constraints I don't push any image file up to Docker Hub.
 
 Make sure you've downloaded the tar.gz file, see Prerequisites.
 
@@ -110,13 +115,10 @@ environment set up and is set to restart so use that.
 docker-compose up -d
 ```
 
-## Misc
+## Misc additional notes
 
 I previously started working on a Windows-based monitor and quit when
 I found out how hard it was (FOR ME) to work with Docker On Windows.
-
-That incomplete repo is still out there. See
-<http://github.com/brian32768/node-service>
 
 ### Another similar project
 
