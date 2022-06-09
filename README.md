@@ -19,8 +19,6 @@ here in the project folder before doing the Docker build.
 
 ## The obligatory screenshot
 
-It does not look like this right now, I am redoing the HTML page.
-
 ![Screenshot of monitor for ArcGIS Flexlm](screenshot.png?raw=true "What the web page looks like")
 
 ### Prerequisites
