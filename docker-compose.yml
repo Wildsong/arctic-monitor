@@ -5,10 +5,17 @@ services:
     image: wildsong/arctic-monitor
     environment:
       LICENSE: /home/flexlm/service.txt
-      VIRTUAL_PORT: 5000
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
     ports:
       - 5000:5000
     restart: unless-stopped
+    labels:
+      # I think that when this container starts up,
+      # the 'caddy' container will see it and generate a new Caddyfile
+      # but what happens here?? Does it generate a Caddyfile here too?
+      caddy: api.${DOMAIN}
+      caddy.reverse_proxy: "{{upstreams 5000}}"
+      caddy.tls.protocols: "tls1.3"
+      caddy.tls.dns: "cloudflare ${API_TOKEN}"
