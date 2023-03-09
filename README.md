@@ -78,7 +78,7 @@ docker buildx build -t wildsong/arctic-monitor .
 
 If the build fails with a message about not being able to ADD then you
 did not put the tar.gz file here or you need to update its name in
-"Dockerfile.flexlm" around line 51.
+"Dockerfile" around line 55.
 
 After the license manager is installed Docker will emit a long series
 of Copy File and Install File messages from the flexlm installer. It
