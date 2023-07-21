@@ -20,6 +20,11 @@ class Config(object):
     TEST_MODE = False
     TEST_FILE = 'lmstat.txt'
 
+    DBSERVER   = os.environ.get('DBSERVER')
+    DATABASE   = os.environ.get('DATABASE')
+    DBUSER     = os.environ.get('DBUSER')
+    DBPASSWORD = os.environ.get('DBPASSWORD')
+   
     LMHOME = os.environ.get('LMHOME') or '/home/flexlm'
     LICENSE = os.environ.get('LICENSE') or 'service.txt'
     _LMUTIL = os.environ.get('LMUTIL')

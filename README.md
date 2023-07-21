@@ -1,7 +1,10 @@
 # arctic-monitor
 
-2022-06 I am working on turning this into a microservice instead of a full web page,
-so the web page you can load at port 5000 is no longer as pretty as it used to be.
+2023-07 Time marches on and I think I can make this work as a node server,
+then I can use (easily) graphql. Or I can make it a flask app still using
+graphql.
+
+2022-06 I am working on turning this into a microservice instead of a full web page, so the web page you can load at port 5000 is no longer as pretty as it used to be.
 (See the notes on version 2 all the way at the bottom of this page.)
 I got arctic-monitor to a useful stage and now I work on it when time permits.
 
@@ -24,7 +27,7 @@ here in the project folder before doing the Docker build.
 ### Prerequisites
 
 The Dockerfile is based on this version of the license manager:
-ArcGIS_License_Manager_Linux_2021.0_177950.tar.gz
+ArcGIS_License_Manager_Linux_2022_1_184756.tar.gz
 
 I don't think it matters very much which version you use, because it is
 just interrogating the real license server over a network connection.
@@ -148,3 +151,8 @@ branch of this project starting right this minute.
 
 The microservice would be a MQTT publisher instead of running over HTTP,
 the pub/sub model makes more sense here.
+
+### Version 2 graphql node
+
+Run a process via exec
+https://www.digitalocean.com/community/tutorials/how-to-launch-child-processes-in-node-js

@@ -52,7 +52,7 @@ RUN adduser flexlm && \
 USER flexlm
 WORKDIR /home/flexlm
 
-COPY ArcGIS_License_Manager_Linux_2021.0_177950.tar.gz LicenseManager.tar.gz
+COPY ArcGIS_License_Manager_Linux_2022_1_184756.tar.gz LicenseManager.tar.gz
 RUN tar xzvf LicenseManager.tar.gz && \
     cd LicenseManager_Linux && \
     ./Setup -l Yes -m silent
@@ -64,7 +64,12 @@ USER root
 
 # ===========================================
 # STAGE 2 -- install and run the microservice
+# The conda/miniconda3 image is based on Debian Stretch
 FROM conda/miniconda3
+ADD https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh .
+RUN sh Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda
+ENV PATH=/opt/conda/bin:${PATH}
+RUN apt-get update && apt-get install -y curl gnupg
 
 # This will upgrade conda, so the fact that the base image is old does not matter
 # flask-bootstrap needs hugo
@@ -75,17 +80,29 @@ RUN conda config --add channels conda-forge && \
 COPY conda_requirements.txt ./
 RUN conda install --file conda_requirements.txt
 
+# Add the ODBC driver so we can talk to SQL Server
+# Use the DEBIAN 9 install instructions.
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql18
+
 RUN adduser flexlm
 WORKDIR /home/flexlm
 COPY --from=stage1 /home/flexlm/arcgis/licensemanager/bin/lmutil .
+
+#RUN cd /lib/lib/x86_64-linux-gnu && \
+    
+
 ENV LMHOME /home/flexlm
 ENV LMUTIL /home/flexlm/lmutil
 ENV LICENSE /home/flexlm/service.txt
+
 USER flexlm
 
 # Install the microservice
 COPY license_monitor.py .
 COPY read_lmutil.py .
+COPY read_sqlserver.py .
 COPY config.py .
 COPY test.sh .
 COPY start_server.py .

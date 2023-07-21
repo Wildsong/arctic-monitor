@@ -2,9 +2,16 @@ version: '3.7'
 
 services:
   monitor:
-    image: wildsong/arctic-monitor
+    image: arctic-monitor
+    build: 
+      dockerfile: Dockerfile
+      context: .
     environment:
       LICENSE: /home/flexlm/service.txt
+      DBSERVER: ${DBSERVER}
+      DATABASE: ${DATABASE}
+      DBUSER: ${DBUSER}
+      DBPASSWORD: ${DBPASSWORD}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
